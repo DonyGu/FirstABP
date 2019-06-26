@@ -1,7 +1,48 @@
 ﻿$(function () {
+
+    var l = abp.localization.getResource('FirstABP');
+
+    var createModal = new abp.ModalManager(abp.appPath + 'Books/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'Books/EditModal');
+
     var dataTable = $('#BooksTable').DataTable(abp.libs.datatables.normalizeConfiguration({
+        processing: true,
+        serverSide: true,
+        paging: true,
+        searching: false,
+        autoWidth: false,
+        scrollCollapse: true,
+        order: [[1, "asc"]],
         ajax: abp.libs.datatables.createAjax(firstABP.services.book.getList),
         columnDefs: [
+            {
+                rowAction: {
+                    items:
+                        [
+                            {
+                                text: l('Edit'),
+                                action: function (data) {
+                                    editModal.open({ id: data.record.id });
+                                }
+                            },
+                            {
+                                text: l('Delete'),
+                                confirmMessage: function (data) {
+                                    return l('BookDeletionConfirmationMessage', data.record.name);
+                                },
+                                action: function (data) {
+                                    firstABP.services.book
+                                        .delete(data.record.id)
+                                        .then(function () {
+                                            abp.notify.info(l('SuccessfullyDeleted'));
+                                            dataTable.ajax.reload();
+                                        });
+                                }
+                            }
+
+                        ]
+                }
+            },
             { data: "name" },
             { data: "type" },
             { data: "publishDate" },
@@ -9,14 +50,17 @@
             { data: "creationTime" }
         ]
     }));
-});
-var createModal = new abp.ModalManager(abp.appPath + 'Books/CreateModal');
 
-createModal.onResult(function () {
-    dataTable.ajax.reload();
-});
+    createModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
 
-$('#NewBookButton').click(function (e) {
-    e.preventDefault();
-    createModal.open();
+    editModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+
+    $('#NewBookButton').click(function (e) {
+        e.preventDefault();
+        createModal.open();
+    });
 });

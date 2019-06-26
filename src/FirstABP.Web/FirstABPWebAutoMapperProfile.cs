@@ -7,6 +7,7 @@ namespace FirstABP
         public FirstABPWebAutoMapperProfile()
         {
             //Configure your AutoMapper mapping configuration here...
+            CreateMap<BookDto, CreateUpdateBookDto>();
         }
     }
 }
