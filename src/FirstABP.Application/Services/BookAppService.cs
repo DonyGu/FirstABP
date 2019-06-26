@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace FirstABP.Services
 {
-    public class BookAppService :
+    public class BookAppService : 
         AsyncCrudAppService<Book, BookDto, Guid, PagedAndSortedResultRequestDto,
                             CreateUpdateBookDto, CreateUpdateBookDto>,
         IBookAppService
