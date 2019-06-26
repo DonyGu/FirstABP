@@ -11,6 +11,7 @@ namespace FirstABP.EntityFrameworkCore
     public class FirstABPDbContext : AbpDbContext<FirstABPDbContext>
     {
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         public FirstABPDbContext(DbContextOptions<FirstABPDbContext> options)
             : base(options)

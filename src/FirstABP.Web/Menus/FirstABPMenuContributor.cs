@@ -28,6 +28,9 @@ namespace FirstABP.Menus
             var l = context.ServiceProvider.GetRequiredService<IStringLocalizer<FirstABPResource>>();
 
             context.Menu.Items.Insert(0, new ApplicationMenuItem("FirstABP.Home", l["Menu:Home"], "/"));
+            context.Menu.AddItem(new ApplicationMenuItem("BooksStore", l["Menu:BookStore"])
+                .AddItem(new ApplicationMenuItem("FirstABP.Books", l["Menu:Books"], url: "/Books"))
+);
         }
     }
 }

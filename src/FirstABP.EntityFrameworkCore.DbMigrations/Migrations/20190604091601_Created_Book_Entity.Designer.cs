@@ -4,14 +4,16 @@ using FirstABP.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FirstABP.Migrations
 {
     [DbContext(typeof(FirstABPMigrationsDbContext))]
-    partial class FirstABPMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190604091601_Created_Book_Entity")]
+    partial class Created_Book_Entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
